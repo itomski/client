@@ -9,7 +9,9 @@ import de.lubowiecki.client.utils.ViewHelper;
 public class Product implements Serializable {
 	
 	private static final long serialVersionUID = 7273045516007784747L;
-	
+
+	private int id;
+
 	private String name;
 	private String description;
 	private int amount;
@@ -68,10 +70,20 @@ public class Product implements Serializable {
 		this.createdAt = createdAt;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Product [name=")
+		builder.append("Product [id=")
+			.append(id)
+			.append(", name=")
 			.append(name)
 			.append(", description=")
 			.append(description)

@@ -8,18 +8,21 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 // Model
-public class ProductRepository {
+public class ProductFileRepository {
 	
 	private static final String FILE_NAME = "data.ser";
 	
 	private List<Product> products;
 	
-	public ProductRepository() {
+	public ProductFileRepository() {
 		readFromFile();
 	}
 	
@@ -29,6 +32,16 @@ public class ProductRepository {
 	}
 	
 	public List<Product> getAll() {
+
+		try(Connection con = DatabaseUtils.getConnection(); Statement stmt = con.createStatement()) {
+			ResultSet results = stmt.executeQuery("SELECT * FROM products");
+			System.out.println("Anfrage");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+
+
 		//return products;
 		return Collections.unmodifiableList(products); // Es wird nicht die Originalliste, sondern eine nuveränderbare Kopie wietergegeben
 	}

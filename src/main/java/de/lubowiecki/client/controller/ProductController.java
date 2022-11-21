@@ -2,17 +2,16 @@ package de.lubowiecki.client.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import de.lubowiecki.client.App;
 import de.lubowiecki.client.model.Product;
-import de.lubowiecki.client.model.ProductRepository;
+import de.lubowiecki.client.model.ProductDbRepository;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -34,23 +33,28 @@ public class ProductController implements Initializable { // Initializable biete
 	@FXML
 	private TableView<Product> tblProducts;
 	
-	private ProductRepository management = new ProductRepository();
+	private ProductDbRepository management;
 
     @FXML
-    private void save() throws IOException {
+    private void save() {
     	Product product = new Product();
     	product.setName(name.getText());
     	product.setDescription(description.getText());
     	product.setAmount(Integer.parseInt(amount.getText()));
     	product.setPrice(Double.parseDouble(price.getText()));
-    	management.add(product);
+    	management.save(product);
     	clearForm();
     	show();
     }
     
     private void show() {
-    	tblProducts.setItems(FXCollections.observableList(management.getAll()));
-    }
+		try {
+			tblProducts.setItems(FXCollections.observableList(management.find()));
+		} catch (SQLException e) {
+			// TODO: Ausgabe in der Oberfläche
+			throw new RuntimeException(e);
+		}
+	}
     
     @FXML
     private void switchToNext() throws IOException {
@@ -74,6 +78,14 @@ public class ProductController implements Initializable { // Initializable biete
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
+		try {
+			management = new ProductDbRepository();
+		} catch (SQLException e) {
+			// TODO: Ausgabe in der Oberfläche
+			throw new RuntimeException(e);
+		}
+
 		show();
 	}
 }
