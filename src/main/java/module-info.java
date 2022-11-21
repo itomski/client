@@ -3,8 +3,8 @@ module de.lubowiecki.client {
     requires javafx.fxml;
     requires java.sql;
 
-    opens de.lubowiecki.client to javafx.fxml;
-    opens de.lubowiecki.client.controller to javafx.fxml;
-    opens de.lubowiecki.client.model to javafx.fxml, javafx.base;
+    opens de.lubowiecki.client;
+    opens de.lubowiecki.client.controller;
+    opens de.lubowiecki.client.model;
     exports de.lubowiecki.client;
 }

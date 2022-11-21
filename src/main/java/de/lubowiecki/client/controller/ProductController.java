@@ -3,6 +3,8 @@ package de.lubowiecki.client.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import de.lubowiecki.client.App;
@@ -12,6 +14,7 @@ import de.lubowiecki.client.model.ProductDbRepository;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -32,7 +35,7 @@ public class ProductController implements Initializable { // Initializable biete
 	
 	@FXML
 	private TableView<Product> tblProducts;
-	
+
 	private ProductDbRepository management;
 
     @FXML
@@ -85,7 +88,6 @@ public class ProductController implements Initializable { // Initializable biete
 			// TODO: Ausgabe in der Oberfläche
 			throw new RuntimeException(e);
 		}
-
 		show();
 	}
 }

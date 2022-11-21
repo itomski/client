@@ -10,6 +10,6 @@ public class DatabaseUtils {
     }
 
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:sqlite:date.db");
+        return DriverManager.getConnection("jdbc:sqlite:products.db");
     }
 }
