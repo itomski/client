@@ -30,9 +30,9 @@
       <Label layoutX="21.0" layoutY="286.0" text="Preis:" AnchorPane.leftAnchor="20.0" />
       <TextField fx:id="price" layoutX="21.0" layoutY="307.0" AnchorPane.leftAnchor="20.0" />
       
-      <Button layoutX="108.0" layoutY="348.0" mnemonicParsing="false" onAction="#save" text="Speichern" />
+      <Button layoutX="23.0" layoutY="349.0" mnemonicParsing="false" onAction="#insert" text="Einfügen" />
       
-      <TableView fx:id="tblProducts" layoutX="224.0" layoutY="66.0" prefHeight="314.0" prefWidth="353.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+      <TableView fx:id="tblProducts" layoutX="224.0" layoutY="66.0" onMouseClicked="#showInForm" prefHeight="314.0" prefWidth="353.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
         <columns>
         
         	<TableColumn prefWidth="117.0" text="Name">
@@ -64,6 +64,7 @@
       </TableView>
       <Button layoutX="531.0" layoutY="22.0" mnemonicParsing="false" onAction="#switchToNext" text="Next" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <Button layoutX="227.0" layoutY="20.0" mnemonicParsing="false" onAction="#delete" text="Löschen" />
+      <Button layoutX="114.0" layoutY="349.0" mnemonicParsing="false" onAction="#update" text="Updaten" />
       
    </children>
 </AnchorPane>

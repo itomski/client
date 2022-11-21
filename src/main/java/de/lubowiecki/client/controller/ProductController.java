@@ -39,23 +39,57 @@ public class ProductController implements Initializable { // Initializable biete
 	private ProductDbRepository management;
 
     @FXML
-    private void save() {
-    	Product product = new Product();
-    	product.setName(name.getText());
-    	product.setDescription(description.getText());
-    	product.setAmount(Integer.parseInt(amount.getText()));
-    	product.setPrice(Double.parseDouble(price.getText()));
-    	management.save(product);
-    	clearForm();
-    	show();
-    }
-    
+    private void insert() {
+    	save(true);
+	}
+
+	@FXML
+	private void update() {
+		save(false);
+	}
+
+	private void save(boolean insert) {
+		Product product = null;
+		if(insert) {
+			product = new Product();
+		}
+		else {
+			product = tblProducts.getSelectionModel().getSelectedItem();
+		}
+		product.setName(name.getText());
+		product.setDescription(description.getText());
+		product.setAmount(Integer.parseInt(amount.getText()));
+		product.setPrice(Double.parseDouble(price.getText()));
+
+		try {
+			management.save(product);
+			clearForm();
+			show();
+		}
+		catch (SQLException e) {
+			// TODO: Ausgabe in der Oberfläche
+			e.printStackTrace();
+		}
+	}
+
     private void show() {
 		try {
 			tblProducts.setItems(FXCollections.observableList(management.find()));
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) {
 			// TODO: Ausgabe in der Oberfläche
-			throw new RuntimeException(e);
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void showInForm() {
+		Product p = tblProducts.getSelectionModel().getSelectedItem();
+		if(p != null) {
+			name.setText(p.getName());
+			description.setText(p.getDescription());
+			amount.setText(p.getAmount() + "");
+			price.setText(p.getPrice() + "");
 		}
 	}
     
@@ -66,10 +100,15 @@ public class ProductController implements Initializable { // Initializable biete
     
     @FXML
     private void delete() {
-    	// TODO: Exception fangen
     	Product p = tblProducts.getSelectionModel().getSelectedItem();
-    	management.delete(p);
-    	show();
+    	try {
+			management.delete(p);
+			show();
+		}
+		catch (SQLException e) {
+			// TODO: Ausgabe in der Oberfläche
+			e.printStackTrace();
+		}
     }
     
     private void clearForm() {
