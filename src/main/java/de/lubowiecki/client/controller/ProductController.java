@@ -3,14 +3,15 @@ package de.lubowiecki.client.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Comparator;
 import java.util.ResourceBundle;
 
 import de.lubowiecki.client.App;
 import de.lubowiecki.client.model.Product;
 import de.lubowiecki.client.model.ProductDbRepository;
 
+import de.lubowiecki.client.utils.ValueUtils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -36,7 +37,15 @@ public class ProductController implements Initializable { // Initializable biete
 	@FXML
 	private TableView<Product> tblProducts;
 
+	@FXML
+	private TableColumn<Product, String> colPrice;
+
+	@FXML
+	private TableColumn<Product, Integer> colCount;
+
 	private ProductDbRepository management;
+
+	private int count = 0;
 
     @FXML
     private void insert() {
@@ -73,6 +82,7 @@ public class ProductController implements Initializable { // Initializable biete
 	}
 
     private void show() {
+		count = 0;
 		try {
 			tblProducts.setItems(FXCollections.observableList(management.find()));
 		}
@@ -121,12 +131,21 @@ public class ProductController implements Initializable { // Initializable biete
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		//Comparator<String> comp = (a, b) -> Double.compare(ValueUtils.strToDouble(a), ValueUtils.strToDouble(b));
+		//colPrice.setComparator(comp);
+		colPrice.setComparator(ValueUtils.DOUBLE_COMP);
+
+		colCount.setCellValueFactory(col -> new ReadOnlyObjectWrapper<Integer>(count++));
+		//colCount.setCellValueFactory(col -> new ReadOnlyObjectWrapper<String>((tblProducts.getItems().indexOf(col.getValue()) + 1 == 3) ? "ok" : "doof"));
+		//colCount.setCellValueFactory(col -> new ReadOnlyObjectWrapper<Number>(col.getValue().getName().length()));
+
 		try {
-			management = new ProductDbRepository();
+			management = ProductDbRepository.get();
 		} catch (SQLException e) {
 			// TODO: Ausgabe in der Oberfläche
 			throw new RuntimeException(e);
 		}
+
 		show();
 	}
 }

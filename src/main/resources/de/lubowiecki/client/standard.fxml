@@ -34,26 +34,27 @@
       
       <TableView fx:id="tblProducts" layoutX="224.0" layoutY="66.0" onMouseClicked="#showInForm" prefHeight="314.0" prefWidth="353.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
         <columns>
+            <TableColumn fx:id="colCount" prefWidth="26.0" text="#" />
         
-        	<TableColumn prefWidth="117.0" text="Name">
+              	<TableColumn prefWidth="107.0" text="Name">
           		<cellValueFactory>
           			<PropertyValueFactory property="name" />
           		</cellValueFactory>
           	</TableColumn>
           	
-          	<TableColumn prefWidth="106.0" style="-fx-alignment: CENTER_RIGHT;" text="Datum">
+          	<TableColumn prefWidth="89.0" style="-fx-alignment: CENTER_RIGHT;" text="Datum">
           		<cellValueFactory>
           			<PropertyValueFactory property="createdAtDE" /> 
           		</cellValueFactory>
           	</TableColumn>
           	
-            <TableColumn prefWidth="49.0" style="-fx-alignment: CENTER_RIGHT;" text="Anzahl">
+            <TableColumn prefWidth="54.0" style="-fx-alignment: CENTER_RIGHT;" text="Anzahl">
             	<cellValueFactory>
           			<PropertyValueFactory property="amount" /> 
           		</cellValueFactory>
             </TableColumn>
             
-            <TableColumn style="-fx-alignment: CENTER_RIGHT;" text="Preis">
+            <TableColumn fx:id="colPrice" maxWidth="151.0" prefWidth="76.0" style="-fx-alignment: CENTER_RIGHT;" text="Preis">
             	<cellValueFactory>
           			<PropertyValueFactory property="priceDE" /> <!-- getPriceDE() -->
           		</cellValueFactory>

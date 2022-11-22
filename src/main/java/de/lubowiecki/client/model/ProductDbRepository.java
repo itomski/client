@@ -9,8 +9,17 @@ public class ProductDbRepository {
 
     private static final String TABLE = "products";
 
-    public ProductDbRepository() throws SQLException {
+    private static ProductDbRepository instance;
+
+    private ProductDbRepository() throws SQLException {
         createTable();
+    }
+
+    public static ProductDbRepository get() throws SQLException {
+        if(instance == null) {
+            instance = new ProductDbRepository(); // LAZY
+        }
+        return instance;
     }
 
     public List<Product> find() throws SQLException {
