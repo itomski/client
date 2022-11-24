@@ -11,7 +11,6 @@ import de.lubowiecki.client.model.Product;
 import de.lubowiecki.client.model.ProductDbRepository;
 
 import de.lubowiecki.client.utils.ValueUtils;
-import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -131,13 +130,7 @@ public class ProductController implements Initializable { // Initializable biete
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		//Comparator<String> comp = (a, b) -> Double.compare(ValueUtils.strToDouble(a), ValueUtils.strToDouble(b));
-		//colPrice.setComparator(comp);
 		colPrice.setComparator(ValueUtils.DOUBLE_COMP);
-
-		colCount.setCellValueFactory(col -> new ReadOnlyObjectWrapper<Integer>(count++));
-		//colCount.setCellValueFactory(col -> new ReadOnlyObjectWrapper<String>((tblProducts.getItems().indexOf(col.getValue()) + 1 == 3) ? "ok" : "doof"));
-		//colCount.setCellValueFactory(col -> new ReadOnlyObjectWrapper<Number>(col.getValue().getName().length()));
 
 		try {
 			management = ProductDbRepository.get();

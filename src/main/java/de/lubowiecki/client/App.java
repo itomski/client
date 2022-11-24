@@ -4,10 +4,11 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 /**
  * JavaFX App
@@ -18,8 +19,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-    	//System.out.println(Screen.getScreens().get(0));
-        scene = new Scene(loadFXML("standard"));
+    	scene = new Scene(loadFXML("controller/standard"));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -30,9 +30,11 @@ public class App extends Application {
     }
 
     // Liest die FXML-Datei ein und produziert die passende Oberfläche
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+    public static Parent loadFXML(String fxml) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        Locale lang = Locale.ENGLISH; // TODO: Dynamisch auswählen
+        ResourceBundle bundle = ResourceBundle.getBundle("de.lubowiecki.client.lang.ui", lang);
+        return fxmlLoader.load(App.class.getResource(fxml + ".fxml"), bundle);
     }
 
     public static void main(String[] args) {
