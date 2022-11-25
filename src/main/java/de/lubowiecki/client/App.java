@@ -19,7 +19,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-    	scene = new Scene(loadFXML("controller/standard"));
+    	scene = new Scene(loadFXML("controller/start-screen"));
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
@@ -32,8 +32,7 @@ public class App extends Application {
     // Liest die FXML-Datei ein und produziert die passende Oberfläche
     public static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        Locale lang = Locale.ENGLISH; // TODO: Dynamisch auswählen
-        ResourceBundle bundle = ResourceBundle.getBundle("de.lubowiecki.client.lang.ui", lang);
+        ResourceBundle bundle = ResourceBundle.getBundle("de.lubowiecki.client.lang.ui", Locale.getDefault());
         return fxmlLoader.load(App.class.getResource(fxml + ".fxml"), bundle);
     }
 

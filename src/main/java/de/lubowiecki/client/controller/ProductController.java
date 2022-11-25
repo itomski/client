@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.Comparator;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import de.lubowiecki.client.App;
@@ -12,12 +13,11 @@ import de.lubowiecki.client.model.ProductDbRepository;
 
 import de.lubowiecki.client.utils.ValueUtils;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.util.StringConverter;
 
 public class ProductController implements Initializable { // Initializable bietet die Möglichkeit Tätigkeiten beim Starten der GUI auszuführen
 	
@@ -29,9 +29,12 @@ public class ProductController implements Initializable { // Initializable biete
 	
 	@FXML
 	private TextField amount;
-	
+
 	@FXML
 	private TextField price;
+
+	@FXML
+	private ComboBox<Locale> langSwitch;
 	
 	@FXML
 	private TableView<Product> tblProducts;
@@ -101,6 +104,13 @@ public class ProductController implements Initializable { // Initializable biete
 			price.setText(p.getPrice() + "");
 		}
 	}
+
+	@FXML
+	public void changeLang() throws IOException {
+		Locale selection = langSwitch.getSelectionModel().getSelectedItem();
+		Locale.setDefault(selection); // Default Sprache ändern
+		App.setRoot("controller/standard"); // Fenster neuladen
+	}
     
     @FXML
     private void switchToNext() throws IOException {
@@ -131,6 +141,26 @@ public class ProductController implements Initializable { // Initializable biete
 	public void initialize(URL location, ResourceBundle resources) {
 
 		colPrice.setComparator(ValueUtils.DOUBLE_COMP);
+
+		ObservableList<Locale> languages = FXCollections.observableArrayList(Locale.ENGLISH, Locale.GERMAN, Locale.FRENCH);
+		langSwitch.setItems(languages);
+
+		StringConverter<Locale> converter = new StringConverter<Locale>() {
+
+			@Override
+			public String toString(Locale loc) {
+				return loc.getDisplayLanguage();
+			}
+
+			@Override
+			public Locale fromString(String string) {
+				return null;
+			}
+		};
+
+		langSwitch.setConverter(converter);
+		langSwitch.getSelectionModel().select(Locale.getDefault());
+
 
 		try {
 			management = ProductDbRepository.get();
