@@ -14,15 +14,12 @@ import java.util.ResourceBundle;
 
 public class StartScreenController implements Initializable {
 
-    @FXML
-    AnchorPane pane;
-
     class StartScreen extends Thread {
 
         @Override
         public void run() {
             try {
-                Thread.sleep(5_000); // Wartet 10 Sekunden, bevor es wieter geht
+                Thread.sleep(5000); // Wartet 5 Sekunden, bevor es wieter geht
 
                 Platform.runLater(() -> {
                     try {
