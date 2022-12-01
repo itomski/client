@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="472.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="472.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.lubowiecki.client.controller.ProductController">
+   <children>
+      <Label layoutX="20.0" layoutY="26.0" text="Produkt Client" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      
+      <Label layoutX="20.0" layoutY="137.0" text="Name:" AnchorPane.leftAnchor="20.0" />
+      <TextField fx:id="name" layoutX="20.0" layoutY="154.0" AnchorPane.leftAnchor="20.0" />
+      
+      <Label layoutX="20.0" layoutY="195.0" text="Beschreibung:" AnchorPane.leftAnchor="20.0" />
+      <TextField fx:id="amount" layoutX="20.0" layoutY="329.0" AnchorPane.leftAnchor="20.0" />
+      
+      <Label layoutX="21.0" layoutY="232.0" text="Menge:" AnchorPane.leftAnchor="20.0" />
+      <TextArea fx:id="description" layoutX="20.0" layoutY="212.0" prefHeight="84.0" prefWidth="161.0" AnchorPane.leftAnchor="20.0" />
+      
+      <Label layoutX="20.0" layoutY="366.0" text="Preis:" AnchorPane.leftAnchor="20.0" />
+      <TextField fx:id="price" layoutX="20.0" layoutY="383.0" AnchorPane.leftAnchor="20.0" />
+      
+      <Button layoutX="23.0" layoutY="425.0" mnemonicParsing="false" onAction="#insert" text="Einfügen" />
+      
+      <TableView fx:id="tblProducts" layoutX="224.0" layoutY="66.0" onMouseClicked="#showInForm" prefHeight="314.0" prefWidth="353.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
+        <columns>
+            <TableColumn fx:id="colCount" prefWidth="26.0" text="#" />
+
+            <TableColumn prefWidth="107.0" text="%tbl.name">
+          		<cellValueFactory>
+          			<PropertyValueFactory property="name" />
+          		</cellValueFactory>
+          	</TableColumn>
+          	
+          	<TableColumn prefWidth="89.0" style="-fx-alignment: CENTER_RIGHT;" text="%tbl.date">
+          		<cellValueFactory>
+          			<PropertyValueFactory property="createdAtDE" /> 
+          		</cellValueFactory>
+          	</TableColumn>
+          	
+            <TableColumn prefWidth="54.0" style="-fx-alignment: CENTER_RIGHT;" text="%tbl.amount">
+            	<cellValueFactory>
+          			<PropertyValueFactory property="amount" /> 
+          		</cellValueFactory>
+            </TableColumn>
+            
+            <TableColumn fx:id="colPrice" maxWidth="151.0" prefWidth="76.0" style="-fx-alignment: CENTER_RIGHT;" text="%tbl.price">
+            	<cellValueFactory>
+          			<PropertyValueFactory property="priceDE" /> <!-- getPriceDE() -->
+          		</cellValueFactory>
+            </TableColumn>
+            
+        </columns>
+        
+      </TableView>
+      <Button layoutX="536.0" layoutY="96.0" mnemonicParsing="false" onAction="#switchToNext" text="Next" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="96.0" />
+      <Button layoutX="227.0" layoutY="96.0" mnemonicParsing="false" onAction="#delete" text="%btn.delete" />
+      <Button layoutX="114.0" layoutY="425.0" mnemonicParsing="false" onAction="#update" text="Updaten" />
+      <ComboBox fx:id="langSwitch" layoutX="430.0" layoutY="22.0" onAction="#changeLang" prefWidth="150.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      
+   </children>
+</AnchorPane>
